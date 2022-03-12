@@ -8,3 +8,6 @@ build/
 tags
 /cotire/
 *.todo
+.vs/
+.idea/
+cmake-build*

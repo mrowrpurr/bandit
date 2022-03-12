@@ -4,17 +4,22 @@ project(bandit)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BANDIT_BUILD_SPECS   "Build the Bandit specs"                ON)
-option(BANDIT_RUN_SPECS     "Run the Bandit specs"                  ON)
+option(BANDIT_BUILD_SPECS   "Build the Bandit specs"                OFF)
+option(BANDIT_RUN_SPECS     "Run the Bandit specs"                  OFF)
 
-if(POLICY CMP0058)
-  cmake_policy(SET CMP0058 NEW)
-endif()
+#if(POLICY CMP0058)
+#  cmake_policy(SET CMP0058 NEW)
+#endif()
 
-set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(cotire/CMake/cotire OPTIONAL RESULT_VARIABLE HAS_COTIRE)
+#set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+#include(cotire/CMake/cotire OPTIONAL RESULT_VARIABLE HAS_COTIRE)
 
-include_directories("${PROJECT_SOURCE_DIR}")
+add_library(bandit INTERFACE)
+
+target_include_directories(bandit INTERFACE bandit/)
+
+find_path(SNOWHOUSE_INCLUDE_DIRS "snowhouse/assert.h")
+target_include_directories(bandit INTERFACE ${SNOWHOUSE_INCLUDE_DIRS})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 
